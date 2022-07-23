@@ -130,7 +130,7 @@ private extension Date {
     func relativeDateString() -> String {
         let formatter = RelativeDateTimeFormatter()
         formatter.dateTimeStyle = .named
-        return formatter.localizedString(for: self, relativeTo: Date())
+        return formatter.localizedString(for: self, relativeTo: Date.now)
     }
 }
 
