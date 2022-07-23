@@ -77,7 +77,7 @@ public struct Topic002View: View {
             List {
                 ForEach(vitalData, id: \.id) { vital in
                     Topic002ListRowView(vital: vital)
-                        .hiddenChevronNavigationLink(destination: EmptyView())
+                        .navigationLink(destination: EmptyView())
                 }
             }
             .navigationTitle("バイタルデータ")
@@ -86,13 +86,20 @@ public struct Topic002View: View {
 }
 
 private extension View {
-    func hiddenChevronNavigationLink<Destination: View>(destination: Destination) -> some View {
+    func navigationLink<Destination: View>(destination: Destination) -> some View {
+#if os(iOS)
         self
             .overlay(
                 NavigationLink(destination: destination) {
                     EmptyView()
-                }.opacity(0)
+                }
+                    .opacity(0)
             )
+#else
+        NavigationLink(destination: destination) {
+            self
+        }
+#endif
     }
 }
 
@@ -115,14 +122,44 @@ private struct Topic002ListRowView: View {
                 Label(vital.date.relativeDateString(), systemImage: "chevron.forward")
                     .labelStyle(.chevron)
             }
+#if os(iOS)
             .padding(.vertical, 6)
+#else
+            .padding(.top, 6)
+#endif
             Spacer()
-            Text(vital.valueString())
-                .font(.system(.title, design: .rounded))
-                .fontWeight(.medium)
+            valueText
                 .frame(maxWidth: .infinity, alignment: .leading)
+#if os(iOS)
                 .padding(.vertical, 6)
+#else
+                .padding(.bottom, 6)
+#endif
         }
+    }
+    
+    private var valueText: Text {
+        var textArray: [Text] = []
+        for c in vital.valueString() {
+            let text: Text
+            if c.isNumericOrDot() {
+                text = Text(String(c))
+                    .font(.system(.title, design: .rounded))
+                    .fontWeight(.medium)
+            } else {
+                text = Text(String(c))
+                    .font(.callout.bold())
+                    .foregroundColor(.secondary)
+            }
+            textArray.append(text)
+        }
+        return textArray.reduce(Text(""), +)
+    }
+}
+
+private extension Character {
+    func isNumericOrDot() -> Bool {
+        return String(self).range(of: "[0-9\\.]", options: .regularExpression) != nil
     }
 }
 

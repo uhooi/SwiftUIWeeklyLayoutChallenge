@@ -13,9 +13,11 @@ struct ChevronLabelStyle: LabelStyle {
             configuration.title
                 .font(.footnote)
                 .foregroundColor(.secondary)
+#if os(iOS)
             configuration.icon
                 .font(.footnote.weight(.bold))
                 .foregroundColor(Color(uiColor: .systemGray3))
+#endif
         }
     }
 }
