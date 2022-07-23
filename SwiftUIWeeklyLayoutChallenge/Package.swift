@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "SwiftUIWeeklyLayoutChallenge",
     defaultLocalization: "ja",
-    platforms: [.iOS(.v14), .macOS(.v10_15), .macCatalyst(.v14), .tvOS(.v13), .watchOS(.v7)],
+    platforms: [.iOS(.v15), .macOS(.v10_15), .macCatalyst(.v14), .tvOS(.v13), .watchOS(.v7)],
     products: [
         .library(
             name: "SwiftUIWeeklyLayoutChallenge",

@@ -69,13 +69,23 @@ public struct Topic002View: View {
         NavigationView {
             List {
                 ForEach(vitalData, id: \.id) { vital in
-                    NavigationLink(destination: EmptyView()) {
-                        Topic002ListRowView(vital: vital)
-                    }
+                    Topic002ListRowView(vital: vital)
+                        .hiddenChevronNavigationLink(destination: EmptyView())
                 }
             }
             .navigationTitle("バイタルデータ")
         }
+    }
+}
+
+private extension View {
+    func hiddenChevronNavigationLink<Destination: View>(destination: Destination) -> some View {
+        self
+            .overlay(
+                NavigationLink(destination: destination) {
+                    EmptyView()
+                }.opacity(0)
+            )
     }
 }
 
@@ -95,9 +105,8 @@ private struct Topic002ListRowView: View {
                     .font(.subheadline.bold())
                     .foregroundColor(vital.color)
                 Spacer()
-                Text(vital.date.relativeDateString())
-                    .font(.footnote)
-                    .foregroundColor(.secondary)
+                Label(vital.date.relativeDateString(), systemImage: "chevron.forward")
+                    .labelStyle(.chevron)
             }
             .padding(.vertical, 6)
             Spacer()
