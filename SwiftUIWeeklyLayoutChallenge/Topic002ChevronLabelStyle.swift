@@ -25,3 +25,15 @@ extension LabelStyle where Self == ChevronLabelStyle {
         .init()
     }
 }
+
+struct ChevronLabelStyle_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack {
+            Label("5分前", systemImage: "chevron.forward")
+            Label("1時間前", systemImage: "chevron.forward")
+            Label("昨日", systemImage: "chevron.forward")
+            Label("一昨日", systemImage: "chevron.forward")
+        }
+        .labelStyle(.chevron)
+    }
+}

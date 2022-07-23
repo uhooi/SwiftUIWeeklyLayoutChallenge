@@ -102,7 +102,7 @@ private struct Topic002ListRowView: View {
         VStack {
             HStack {
                 Label(vital.title, systemImage: vital.iconSystemName)
-                    .font(.subheadline.bold())
+                    .labelStyle(.vital)
                     .foregroundColor(vital.color)
                 Spacer()
                 Label(vital.date.relativeDateString(), systemImage: "chevron.forward")
