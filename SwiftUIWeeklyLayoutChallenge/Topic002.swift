@@ -41,7 +41,14 @@ fileprivate struct Vital: Identifiable {
             }
             return valueString
         case .dateComponents(let dateComponents):
-            return "\(dateComponents)"
+            let formatter = DateComponentsFormatter()
+            formatter.unitsStyle = .abbreviated
+            let hour = dateComponents.minute! / 60
+            let minute = dateComponents.minute! % 60
+            return formatter.string(from: DateComponents(
+                hour: hour,
+                minute: minute
+            ))!
         case .measurement(let value, let unit, let formattedUnit):
             let measurement = Measurement(
                 value: value,
@@ -117,7 +124,6 @@ private struct Topic002ListRowView: View {
                 .padding(.vertical, 6)
         }
     }
-    
 }
 
 private extension Date {
