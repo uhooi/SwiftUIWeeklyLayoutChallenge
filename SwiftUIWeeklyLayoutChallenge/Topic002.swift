@@ -25,7 +25,21 @@ fileprivate struct Vital: Identifiable {
     func valueString() -> String {
         switch value {
         case .number(let value, let style, let customUnit):
-            return "\(value)"
+            let valueString: String
+            if let customUnit = customUnit {
+                let measurement = Measurement(
+                    value: value,
+                    unit: .init(symbol: customUnit)
+                )
+                let formatter = MeasurementFormatter()
+                formatter.numberFormatter.numberStyle = style
+                valueString = formatter.string(from: measurement)
+            } else {
+                let formatter = NumberFormatter()
+                formatter.numberStyle = style
+                valueString = formatter.string(from: value as NSNumber)!
+            }
+            return valueString
         case .dateComponents(let dateComponents):
             return "\(dateComponents)"
         case .measurement(let value, let unit, let formattedUnit):
