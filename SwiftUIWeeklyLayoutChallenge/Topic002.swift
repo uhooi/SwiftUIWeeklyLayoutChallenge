@@ -119,8 +119,11 @@ private struct Topic002ListRowView: View {
                     .labelStyle(.vital)
                     .foregroundColor(vital.color)
                 Spacer()
-                Label(vital.date.relativeDateString(), systemImage: "chevron.forward")
-                    .labelStyle(.chevron)
+                Label(
+                    vital.date.formatted(.relative(presentation: .named)),
+                    systemImage: "chevron.forward"
+                )
+                .labelStyle(.chevron)
             }
 #if os(iOS)
             .padding(.vertical, 6)
@@ -160,14 +163,6 @@ private struct Topic002ListRowView: View {
 private extension Character {
     func isNumericOrDot() -> Bool {
         return String(self).range(of: "[0-9\\.]", options: .regularExpression) != nil
-    }
-}
-
-private extension Date {
-    func relativeDateString() -> String {
-        let formatter = RelativeDateTimeFormatter()
-        formatter.dateTimeStyle = .named
-        return formatter.localizedString(for: self, relativeTo: Date.now)
     }
 }
 
