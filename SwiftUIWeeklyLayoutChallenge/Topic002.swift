@@ -43,12 +43,8 @@ fileprivate struct Vital: Identifiable {
         case .dateComponents(let dateComponents):
             let formatter = DateComponentsFormatter()
             formatter.unitsStyle = .abbreviated
-            let hour = dateComponents.minute! / 60
-            let minute = dateComponents.minute! % 60
-            return formatter.string(from: DateComponents(
-                hour: hour,
-                minute: minute
-            ))!
+            formatter.allowedUnits = [.hour, .minute]
+            return formatter.string(from: dateComponents)!
         case .measurement(let value, let unit, let formattedUnit):
             let measurement = Measurement(
                 value: value,
