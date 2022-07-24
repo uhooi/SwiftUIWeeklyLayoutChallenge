@@ -113,7 +113,7 @@ private struct Topic002ListRowView: View {
     let vital: Vital
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             HStack {
                 Label(vital.title, systemImage: vital.iconSystemName)
                     .labelStyle(.vital)
@@ -132,7 +132,6 @@ private struct Topic002ListRowView: View {
 #endif
             Spacer()
             valueText
-                .frame(maxWidth: .infinity, alignment: .leading)
 #if os(iOS)
                 .padding(.vertical, 6)
 #else
