@@ -70,11 +70,9 @@ public struct Topic002View: View {
     
     public var body: some View {
         NavigationView {
-            List {
-                ForEach(vitalData, id: \.id) { vital in
-                    Topic002ListRowView(vital: vital)
-                        .navigationLink(destination: EmptyView())
-                }
+            List(vitalData) { vital in
+                Topic002ListRowView(vital: vital)
+                    .navigationLink(destination: EmptyView())
             }
             .navigationTitle("バイタルデータ")
         }
