@@ -16,7 +16,7 @@ struct ChevronLabelStyle: LabelStyle {
 #if os(iOS)
             configuration.icon
                 .font(.footnote.bold())
-                .foregroundColor(Color(uiColor: .systemGray3))
+                .foregroundColor(.init(.tertiaryLabel))
 #endif
         }
     }
