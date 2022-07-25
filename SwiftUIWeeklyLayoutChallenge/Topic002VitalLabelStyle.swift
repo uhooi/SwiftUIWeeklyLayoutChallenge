@@ -11,7 +11,6 @@ struct VitalLabelStyle: LabelStyle {
     func makeBody(configuration: Configuration) -> some View {
         HStack {
             configuration.icon
-                .font(.headline)
             configuration.title
                 .font(.subheadline.bold())
         }
