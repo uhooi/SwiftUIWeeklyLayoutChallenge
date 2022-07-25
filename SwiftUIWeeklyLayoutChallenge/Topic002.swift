@@ -82,13 +82,11 @@ public struct Topic002View: View {
 private extension View {
     func navigationLink<Destination: View>(destination: Destination) -> some View {
 #if os(iOS)
-        self
-            .overlay(
-                NavigationLink(destination: destination) {
-                    EmptyView()
-                }
-                    .opacity(0)
-            )
+        self.overlay(
+            NavigationLink(destination: destination) {
+                EmptyView()
+            }.opacity(0)
+        )
 #else
         NavigationLink(destination: destination) {
             self
