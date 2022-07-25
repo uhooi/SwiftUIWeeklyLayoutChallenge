@@ -72,7 +72,7 @@ public struct Topic002View: View {
         NavigationView {
             List(vitalData) { vital in
                 Topic002ListRowView(vital: vital)
-                    .navigationLink(destination: EmptyView())
+                    .vitalNavigationLink(destination: EmptyView())
             }
             .navigationTitle("バイタルデータ")
         }
@@ -80,7 +80,7 @@ public struct Topic002View: View {
 }
 
 private extension View {
-    func navigationLink<Destination: View>(destination: Destination) -> some View {
+    func vitalNavigationLink<Destination: View>(destination: Destination) -> some View {
 #if os(iOS)
         self.overlay(
             NavigationLink(destination: destination) {
