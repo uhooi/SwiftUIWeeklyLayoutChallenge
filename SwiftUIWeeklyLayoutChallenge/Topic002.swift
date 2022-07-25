@@ -21,6 +21,33 @@ fileprivate struct Vital: Identifiable {
         case dateComponents(_ dateComponents: DateComponents)
         case measurement(value: Double, unit: Dimension, formattedUnit: Dimension? = nil)
     }
+    
+    func valueString() -> String {
+        switch value {
+        case .number(let value, let style, let customUnit):
+            let valueString: String
+            switch style {
+            case .percent:
+                valueString = value.formatted(.percent)
+            case .decimal:
+                valueString = value.formatted(.number)
+            default:
+                preconditionFailure("The implementation was omitted.")
+            }
+            return valueString + (customUnit ?? "")
+        case .dateComponents(let dateComponents):
+            let formatter = DateComponentsFormatter()
+            formatter.unitsStyle = .abbreviated
+            formatter.allowedUnits = [.hour, .minute]
+            return formatter.string(from: dateComponents)!
+        case .measurement(let value, let unit, let formattedUnit):
+            let measurement = Measurement(
+                value: value,
+                unit: (formattedUnit ?? unit)
+            )
+            return "\(measurement)"
+        }
+    }
 }
 
 // MARK: - Sample Data
@@ -37,12 +64,82 @@ public struct Topic002View: View {
     public init() {}
     
     public var body: some View {
-        Text("Code your layout here!")
+        NavigationView {
+            List(vitalData) { vital in
+                Topic002ListRowView(vital: vital)
+                    .vitalNavigationLink(destination: EmptyView())
+            }
+            .navigationTitle("バイタルデータ")
+        }
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+private extension View {
+    func vitalNavigationLink<Destination: View>(destination: Destination) -> some View {
+#if os(iOS)
+        overlay(
+            NavigationLink(destination: destination) {
+                EmptyView()
+            }.opacity(0)
+        )
+#else
+        NavigationLink(destination: destination) {
+            self
+        }
+#endif
+    }
+}
+
+struct Topic002View_Previews: PreviewProvider {
     static var previews: some View {
         Topic002View()
+    }
+}
+
+private struct Topic002ListRowView: View {
+    let vital: Vital
+    
+#if os(watchOS)
+    private let vStackSpacing: CGFloat? = nil
+#else
+    private let vStackSpacing: CGFloat? = 18
+#endif
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: vStackSpacing) {
+            HStack {
+                Label(vital.title, systemImage: vital.iconSystemName)
+                    .labelStyle(.vital)
+                    .foregroundColor(vital.color)
+                Spacer()
+                Label(
+                    vital.date.formatted(.relative(presentation: .named)),
+                    systemImage: "chevron.forward"
+                )
+                .labelStyle(.chevron)
+            }
+            valueText
+        }
+        .padding(.vertical, 6)
+    }
+    
+    private var valueText: Text {
+        vital.valueString().map {
+            $0.isNumber || [".", ",", " "].contains($0)
+            ? Text(String($0))
+                .font(.system(.title, design: .rounded).weight(.medium))
+            : Text(String($0))
+                .font(.callout.weight(.medium))
+                .foregroundColor(.secondary)
+        }
+        .reduce(Text(""), +)
+    }
+}
+
+struct Topic002ListRowView_Previews: PreviewProvider {
+    static var previews: some View {
+        List(vitalData) { vital in
+            Topic002ListRowView(vital: vital)
+        }
     }
 }
