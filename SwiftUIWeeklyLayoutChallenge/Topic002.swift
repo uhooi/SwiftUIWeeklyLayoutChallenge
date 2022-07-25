@@ -43,7 +43,7 @@ fileprivate struct Vital: Identifiable {
         case .measurement(let value, let unit, let formattedUnit):
             let measurement = Measurement(
                 value: value,
-                unit: formattedUnit != nil ? formattedUnit! : unit
+                unit: (formattedUnit ?? unit)
             )
             return "\(measurement)"
         }
