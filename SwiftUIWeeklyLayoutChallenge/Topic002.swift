@@ -104,8 +104,14 @@ struct Topic002View_Previews: PreviewProvider {
 private struct Topic002ListRowView: View {
     let vital: Vital
     
+#if os(watchOS)
+    private let vStackSpacing: CGFloat? = nil
+#else
+    private let vStackSpacing: CGFloat? = 18
+#endif
+    
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: vStackSpacing) {
             HStack {
                 Label(vital.title, systemImage: vital.iconSystemName)
                     .labelStyle(.vital)
@@ -117,19 +123,9 @@ private struct Topic002ListRowView: View {
                 )
                 .labelStyle(.chevron)
             }
-#if os(iOS)
-            .padding(.vertical, 6)
-#else
-            .padding(.top, 6)
-#endif
-            Spacer()
             valueText
-#if os(iOS)
-                .padding(.vertical, 6)
-#else
-                .padding(.bottom, 6)
-#endif
         }
+        .padding(.vertical, 6)
     }
     
     private var valueText: Text {
