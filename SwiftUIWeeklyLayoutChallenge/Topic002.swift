@@ -26,20 +26,15 @@ fileprivate struct Vital: Identifiable {
         switch value {
         case .number(let value, let style, let customUnit):
             let valueString: String
-            if let customUnit = customUnit {
-                let measurement = Measurement(
-                    value: value,
-                    unit: .init(symbol: customUnit)
-                )
-                let formatter = MeasurementFormatter()
-                formatter.numberFormatter.numberStyle = style
-                valueString = formatter.string(from: measurement)
-            } else {
-                let formatter = NumberFormatter()
-                formatter.numberStyle = style
-                valueString = formatter.string(from: value as NSNumber)!
+            switch style {
+            case .percent:
+                valueString = value.formatted(.percent)
+            case .decimal:
+                valueString = value.formatted(.number)
+            default:
+                preconditionFailure("The implementation was omitted.")
             }
-            return valueString
+            return valueString + (customUnit ?? "")
         case .dateComponents(let dateComponents):
             let formatter = DateComponentsFormatter()
             formatter.unitsStyle = .abbreviated
