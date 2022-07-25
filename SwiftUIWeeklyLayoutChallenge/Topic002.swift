@@ -77,7 +77,7 @@ public struct Topic002View: View {
 private extension View {
     func vitalNavigationLink<Destination: View>(destination: Destination) -> some View {
 #if os(iOS)
-        self.overlay(
+        overlay(
             NavigationLink(destination: destination) {
                 EmptyView()
             }.opacity(0)
