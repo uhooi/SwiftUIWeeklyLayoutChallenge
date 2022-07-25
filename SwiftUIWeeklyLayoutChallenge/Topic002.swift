@@ -124,27 +124,15 @@ private struct Topic002ListRowView: View {
     }
     
     private var valueText: Text {
-        var textArray: [Text] = []
-        for c in vital.valueString() {
-            let text: Text
-            if c.isNumericOrDot() {
-                text = Text(String(c))
-                    .font(.system(.title, design: .rounded))
-                    .fontWeight(.medium)
-            } else {
-                text = Text(String(c))
-                    .font(.callout.bold())
-                    .foregroundColor(.secondary)
-            }
-            textArray.append(text)
+        vital.valueString().map {
+            $0.isNumber || [".", ",", " "].contains($0)
+            ? Text(String($0))
+                .font(.system(.title, design: .rounded).weight(.medium))
+            : Text(String($0))
+                .font(.callout.weight(.medium))
+                .foregroundColor(.secondary)
         }
-        return textArray.reduce(Text(""), +)
-    }
-}
-
-private extension Character {
-    func isNumericOrDot() -> Bool {
-        return String(self).range(of: "[0-9\\.]", options: .regularExpression) != nil
+        .reduce(Text(""), +)
     }
 }
 
