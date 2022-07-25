@@ -138,10 +138,8 @@ private struct Topic002ListRowView: View {
 
 struct Topic002ListRowView_Previews: PreviewProvider {
     static var previews: some View {
-        List {
-            ForEach(vitalData, id: \.id) { vital in
-                Topic002ListRowView(vital: vital)
-            }
+        List(vitalData) { vital in
+            Topic002ListRowView(vital: vital)
         }
     }
 }
