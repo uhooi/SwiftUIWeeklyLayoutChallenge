@@ -20,9 +20,11 @@ public struct Topic003View: View {
                 Section {
                     DepartureSignal(signal: .出発進行)
                         .padding()
+                        .center()
                 }
                 Section {
                     DepartureText(signal: .出発進行)
+                        .center()
                 }
                 Section {
                     LightListRowView(text: "灯1")
@@ -34,6 +36,16 @@ public struct Topic003View: View {
             .navigationTitle("出発信号機")
         }
 #endif
+    }
+}
+
+private extension View {
+    func center() -> some View {
+        HStack {
+            Spacer()
+            self
+            Spacer()
+        }
     }
 }
 
