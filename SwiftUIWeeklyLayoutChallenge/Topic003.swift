@@ -143,7 +143,7 @@ struct LightListRowView: View {
                 Text(Light.yellow.rawValue).tag(Light.yellow)
                 Text(Light.black.rawValue).tag(Light.black)
             }
-            .pickerStyle(SegmentedPickerStyle())
+            .pickerStyle(.segmented)
         }
     }
 }
