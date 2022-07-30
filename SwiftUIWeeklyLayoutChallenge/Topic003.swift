@@ -17,9 +17,13 @@ public struct Topic003View: View {
 #else
         NavigationView {
             List {
-                DepartureSignal(signal: .出発進行)
-                    .padding()
-                DepartureText(signal: .出発進行)
+                Section {
+                    DepartureSignal(signal: .出発進行)
+                        .padding()
+                }
+                Section {
+                    DepartureText(signal: .出発進行)
+                }
             }
             .navigationTitle("出発信号機")
         }
