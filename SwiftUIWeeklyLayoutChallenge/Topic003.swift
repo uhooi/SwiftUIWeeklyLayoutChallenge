@@ -144,6 +144,7 @@ struct LightListRowView: View {
                 Text(Light.black.rawValue).tag(Light.black)
             }
             .pickerStyle(.segmented)
+            .fixedSize()
         }
     }
 }
