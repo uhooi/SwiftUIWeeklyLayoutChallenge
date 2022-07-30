@@ -16,7 +16,11 @@ public struct Topic003View: View {
             .padding()
 #else
         NavigationView {
-            DepartureSignal()
+            List {
+                DepartureSignal(signal: .出発進行)
+                    .padding()
+            }
+            .navigationTitle("出発信号機")
         }
 #endif
     }
@@ -39,12 +43,51 @@ struct DepartureSignal: View {
     }
     
     var body: some View {
-        Text("Code your layout here!")
+        VStack {
+            switch signal {
+            case .出発進行:
+                blackLight
+                blackLight
+                greenLight
+                blackLight
+            case .出発減速:
+                yellowLight
+                blackLight
+                blackLight
+                greenLight
+            case .出発注意:
+                blackLight
+                blackLight
+                blackLight
+                yellowLight
+            case .出発警戒:
+                yellowLight
+                blackLight
+                blackLight
+                yellowLight
+            case .出発停止:
+                blackLight
+                redLight
+                blackLight
+                blackLight
+            }
+        }
     }
     
-    var light: some View {
+    @State var signal: Signal
+    
+    private var greenLight: some View { light(color: .green) }
+    private var yellowLight: some View { light(color: .yellow) }
+    private var redLight: some View { light(color: .red) }
+    private var blackLight: some View { light(color: .black) }
+    
+    private var light: some View {
         Image(systemName: "circle.fill")
             .font(.largeTitle)
+    }
+    
+    private func light(color: Color) -> some View {
+        light.foregroundColor(color)
     }
 }
 
