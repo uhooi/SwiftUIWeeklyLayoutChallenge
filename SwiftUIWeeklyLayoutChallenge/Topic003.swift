@@ -19,6 +19,7 @@ public struct Topic003View: View {
             List {
                 DepartureSignal(signal: .出発進行)
                     .padding()
+                DepartureText(signal: .出発進行)
             }
             .navigationTitle("出発信号機")
         }
@@ -41,6 +42,8 @@ struct DepartureSignal: View {
         
         var id: String { rawValue }
     }
+    
+    var signal: Signal
     
     var body: some View {
         VStack {
@@ -74,8 +77,6 @@ struct DepartureSignal: View {
         }
     }
     
-    @State var signal: Signal
-    
     private var greenLight: some View { light(color: .green) }
     private var yellowLight: some View { light(color: .yellow) }
     private var redLight: some View { light(color: .red) }
@@ -89,6 +90,15 @@ struct DepartureSignal: View {
     private func light(color: Color) -> some View {
         light.foregroundColor(color)
     }
+}
+
+struct DepartureText: View {
+    var body: some View {
+        Text(signal.rawValue)
+            .font(.largeTitle.bold())
+    }
+    
+    @State var signal: DepartureSignal.Signal
 }
 
 struct Topic003View_Previews: PreviewProvider {
