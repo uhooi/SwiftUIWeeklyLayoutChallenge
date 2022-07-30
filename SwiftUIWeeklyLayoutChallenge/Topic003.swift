@@ -11,26 +11,17 @@ public struct Topic003View: View {
     public init() {}
     
     public var body: some View {
-        if #available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *) {
-            #if os(macOS)
+#if os(macOS)
+        DepartureSignal()
+            .padding()
+#else
+        NavigationView {
             DepartureSignal()
-                .padding()
-            #else
-            if #available(watchOS 7.0, *) {
-                NavigationView {
-                    DepartureSignal()
-                }
-            } else {
-                DepartureSignal()
-            }
-            #endif
-        } else {
-            Text("Support for this platform is not considered.")
         }
+#endif
     }
 }
 
-@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *)
 struct DepartureSignal: View {
     enum Signal: String, CaseIterable, Identifiable {
         /// 上の灯火から順に 消・消・緑・消 で進行信号を現示。
