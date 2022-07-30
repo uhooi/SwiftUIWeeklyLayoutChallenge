@@ -24,6 +24,12 @@ public struct Topic003View: View {
                 Section {
                     DepartureText(signal: .出発進行)
                 }
+                Section {
+                    LightListRowView(text: "灯1")
+                    LightListRowView(text: "灯2")
+                    LightListRowView(text: "灯3")
+                    LightListRowView(text: "灯4")
+                }
             }
             .navigationTitle("出発信号機")
         }
@@ -103,6 +109,31 @@ struct DepartureText: View {
     }
     
     @State var signal: DepartureSignal.Signal
+}
+
+struct LightListRowView: View {
+    enum Light: String, CaseIterable, Identifiable {
+        case green = "緑"
+        case yellow = "黄"
+        case red = "赤"
+        case black = "消"
+        var id: Self { self }
+    }
+    
+    var text: String
+    @State private var selectedLight: Light = .black
+    
+    var body: some View {
+        HStack {
+            Text(text)
+            Spacer()
+            Picker("Light", selection: $selectedLight) {
+                Text(Light.yellow.rawValue).tag(Light.yellow)
+                Text(Light.black.rawValue).tag(Light.black)
+            }
+            .pickerStyle(SegmentedPickerStyle())
+        }
+    }
 }
 
 struct Topic003View_Previews: PreviewProvider {
