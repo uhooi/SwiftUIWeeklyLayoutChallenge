@@ -27,10 +27,10 @@ public struct Topic003View: View {
                         .center()
                 }
                 Section {
-                    LightListRowView(text: "灯1")
-                    LightListRowView(text: "灯2")
-                    LightListRowView(text: "灯3")
-                    LightListRowView(text: "灯4")
+                    LightListRowView(text: "灯1", lights: [.yellow, .black])
+                    LightListRowView(text: "灯2", lights: [.red, .black])
+                    LightListRowView(text: "灯3", lights: [.green, .black])
+                    LightListRowView(text: "灯4", lights: [.green, .yellow, .black])
                 }
             }
             .navigationTitle("出発信号機")
@@ -133,6 +133,7 @@ struct LightListRowView: View {
     }
     
     var text: String
+    var lights: [Light]
     @State private var selectedLight: Light = .black
     
     var body: some View {
@@ -140,8 +141,9 @@ struct LightListRowView: View {
             Text(text)
             Spacer()
             Picker("Light", selection: $selectedLight) {
-                Text(Light.yellow.rawValue).tag(Light.yellow)
-                Text(Light.black.rawValue).tag(Light.black)
+                ForEach(lights) {
+                    Text($0.rawValue).tag($0)
+                }
             }
             .pickerStyle(.segmented)
             .fixedSize()
