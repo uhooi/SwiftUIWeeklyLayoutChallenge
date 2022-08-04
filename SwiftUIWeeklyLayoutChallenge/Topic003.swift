@@ -12,8 +12,24 @@ public struct Topic003View: View {
     
     public var body: some View {
 #if os(macOS)
-        DepartureSignal()
-            .padding()
+        VStack {
+            DepartureSignal(signal: .出発進行)
+                .padding()
+            HStack(alignment: .top) {
+                Text("指差呼称")
+                VStack {
+                    DepartureText(signal: .出発進行)
+                    Group {
+                        LightListRowView(text: "灯1", lights: [.yellow, .black])
+                        LightListRowView(text: "灯2", lights: [.red, .black])
+                        LightListRowView(text: "灯3", lights: [.green, .black])
+                        LightListRowView(text: "灯4", lights: [.green, .yellow, .black])
+                    }
+                }
+            }
+        }
+        .padding()
+        .navigationTitle("出発信号機")
 #else
         NavigationView {
             List {
