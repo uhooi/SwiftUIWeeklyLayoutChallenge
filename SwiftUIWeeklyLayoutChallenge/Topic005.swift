@@ -15,33 +15,33 @@ public struct Topic005View: View {
         ScrollView {
             GroupBox {
                 GroupBox {
-                    Text("- Stacksと`layoutPriority(_:)`を使ってみる")
+                    BulletText("Stacksと`layoutPriority(_:)`を使ってみる")
+                        .frame(maxWidth: .infinity, alignment: .leading)
                 } label: {
                     Text("001")
                 }
                 GroupBox {
-                    Text(
-                        """
-                        - `NavigationLink`を使ってみる
-                        - `List`を使ってみる
-                        """
-                    )
+                    Group {
+                        BulletText("`NavigationLink`を使ってみる")
+                        BulletText("`List`を使ってみる")
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 } label: {
                     Text("002")
                 }
                 GroupBox {
-                    Text(
-                        """
-                        - `Form`を使ってみる
-                        - `Picker`と`pickerStyle(_:)`を使ってみる
-                        - `fixedSize(horizontal:vertical:)`を使ってみる
-                        """
-                    )
+                    Group {
+                        BulletText("`Form`を使ってみる")
+                        BulletText("`Picker`と`pickerStyle(_:)`を使ってみる")
+                        BulletText("`fixedSize(horizontal:vertical:)`を使ってみる")
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 } label: {
                     Text("003")
                 }
                 GroupBox {
-                    Text("- `PrimitiveButtonStyle`を使ってみる")
+                    BulletText("`PrimitiveButtonStyle`を使ってみる")
+                        .frame(maxWidth: .infinity, alignment: .leading)
                 } label: {
                     Text("004")
                 }
@@ -55,6 +55,20 @@ public struct Topic005View: View {
             }
             .padding()
         }
+    }
+}
+
+private struct BulletText: View {
+    let text: LocalizedStringKey
+    var body: some View {
+        HStack(alignment: .top) {
+            Text("・")
+            Text(text)
+        }
+    }
+    
+    init(_ text: LocalizedStringKey) {
+        self.text = text
     }
 }
 
