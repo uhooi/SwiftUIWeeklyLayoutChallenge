@@ -49,12 +49,21 @@ public struct Topic005View: View {
                 Group {
                     Text("#SwiftUIレイアウト一本勝負")
                         .font(.system(.title2, design: .monospaced).weight(.heavy))
+                        .foregroundStyle(rainbowGradient)
                     Text("主なテーマ")
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
             }
             .padding()
         }
+    }
+    
+    private var rainbowGradient: LinearGradient {
+        .init(
+            colors: [.purple, .red, .orange, .yellow, .green, .blue, .purple],
+            startPoint: .leading,
+            endPoint: .trailing
+        )
     }
 }
 
