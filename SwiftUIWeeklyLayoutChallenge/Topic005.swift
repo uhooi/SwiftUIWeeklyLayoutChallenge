@@ -50,6 +50,7 @@ public struct Topic005View: View {
                     Text("#SwiftUIレイアウト一本勝負")
                         .font(.system(.title2, design: .monospaced).weight(.heavy))
                         .foregroundStyle(rainbowGradient)
+                        .scaleEffect(x: 1, y: 3) // FIXME: Remove it
                     Text("主なテーマ")
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
