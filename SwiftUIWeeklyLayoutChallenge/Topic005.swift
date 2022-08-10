@@ -60,15 +60,16 @@ public struct Topic005View: View {
 
 private struct BulletText: View {
     let text: LocalizedStringKey
+    
+    init(_ text: LocalizedStringKey) {
+        self.text = text
+    }
+    
     var body: some View {
         HStack(alignment: .top) {
             Text("・")
             Text(text)
         }
-    }
-    
-    init(_ text: LocalizedStringKey) {
-        self.text = text
     }
 }
 
