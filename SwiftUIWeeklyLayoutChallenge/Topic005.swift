@@ -12,8 +12,8 @@ public struct Topic005View: View {
     public init() {}
     
     public var body: some View {
-        GroupBox {
-            ScrollView {
+        ScrollView {
+            GroupBox {
                 GroupBox {
                     Text("- Stacksと`layoutPriority(_:)`を使ってみる")
                 } label: {
@@ -45,17 +45,16 @@ public struct Topic005View: View {
                 } label: {
                     Text("004")
                 }
+            } label: {
+                Group {
+                    Text("#SwiftUIレイアウト一本勝負")
+                        .font(.system(.title2, design: .monospaced).weight(.heavy))
+                    Text("主なテーマ")
+                }
+                .frame(maxWidth: .infinity, alignment: .center)
             }
-        } label: {
-            Group {
-                Text("#SwiftUIレイアウト一本勝負")
-                    .font(.system(.title2, design: .monospaced).weight(.heavy))
-                Text("主なテーマ")
-            }
-            .frame(maxWidth: .infinity, alignment: .center)
+            .padding()
         }
-        .fixedSize(horizontal: false, vertical: true)
-        .padding()
     }
 }
 
