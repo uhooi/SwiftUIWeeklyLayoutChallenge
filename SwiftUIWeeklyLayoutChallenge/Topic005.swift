@@ -61,7 +61,7 @@ public struct Topic005View: View {
 }
 
 private struct BulletLabel: View {
-    let title: LocalizedStringKey
+    private let title: LocalizedStringKey
     
     init(_ title: LocalizedStringKey) {
         self.title = title
