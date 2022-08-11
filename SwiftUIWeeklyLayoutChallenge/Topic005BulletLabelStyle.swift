@@ -29,7 +29,7 @@ struct BulletLabelStyle_Previews: PreviewProvider {
             Label {
                 Text("Stacksと`layoutPriority(_:)`を使ってみる")
             } icon: {
-                Text("・")
+                Text("•")
             }
         }
         .labelStyle(.bullet)

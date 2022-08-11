@@ -71,7 +71,7 @@ private struct BulletLabel: View {
         Label {
             Text(title)
         } icon: {
-            Text("・")
+            Text("•")
         }
         .labelStyle(.bullet)
     }
