@@ -78,16 +78,18 @@ public struct Topic005View: View {
 
 private struct BulletLabel: View {
     private let title: LocalizedStringKey
+    private let mark: String
     
-    init(_ title: LocalizedStringKey) {
+    init(_ title: LocalizedStringKey, mark: String = "•") {
         self.title = title
+        self.mark = mark
     }
     
     var body: some View {
         Label {
             Text(title)
         } icon: {
-            Text("•")
+            Text(mark)
         }
         .labelStyle(.bullet)
     }
