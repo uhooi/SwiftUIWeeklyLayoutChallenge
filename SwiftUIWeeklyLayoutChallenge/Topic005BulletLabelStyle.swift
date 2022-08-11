@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BulletLabelStyle: LabelStyle {
     func makeBody(configuration: Configuration) -> some View {
-        HStack(alignment: .top) {
+        HStack(alignment: .firstTextBaseline) {
             configuration.icon
             configuration.title
         }
