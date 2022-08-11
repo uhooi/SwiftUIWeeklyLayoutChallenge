@@ -7,4 +7,4 @@
 
 import SwiftUI
 
-public typealias ContentView = Topic004View
+public typealias ContentView = Topic005View
