@@ -15,33 +15,25 @@ public struct Topic005View: View {
         ScrollView {
             GroupBox {
                 GroupBox {
-                    BulletText("Stacksと`layoutPriority(_:)`を使ってみる")
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    BulletLabel("Stacksと`layoutPriority(_:)`を使ってみる")
                 } label: {
                     Text("001")
                 }
                 GroupBox {
-                    Group {
-                        BulletText("`NavigationLink`を使ってみる")
-                        BulletText("`List`を使ってみる")
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    BulletLabel("`NavigationLink`を使ってみる")
+                    BulletLabel("`List`を使ってみる")
                 } label: {
                     Text("002")
                 }
                 GroupBox {
-                    Group {
-                        BulletText("`Form`を使ってみる")
-                        BulletText("`Picker`と`pickerStyle(_:)`を使ってみる")
-                        BulletText("`fixedSize(horizontal:vertical:)`を使ってみる")
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    BulletLabel("`Form`を使ってみる")
+                    BulletLabel("`Picker`と`pickerStyle(_:)`を使ってみる")
+                    BulletLabel("`fixedSize(horizontal:vertical:)`を使ってみる")
                 } label: {
                     Text("003")
                 }
                 GroupBox {
-                    BulletText("`PrimitiveButtonStyle`を使ってみる")
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    BulletLabel("`PrimitiveButtonStyle`を使ってみる")
                 } label: {
                     Text("004")
                 }
@@ -68,18 +60,20 @@ public struct Topic005View: View {
     }
 }
 
-private struct BulletText: View {
-    let text: LocalizedStringKey
+private struct BulletLabel: View {
+    let title: LocalizedStringKey
     
-    init(_ text: LocalizedStringKey) {
-        self.text = text
+    init(_ title: LocalizedStringKey) {
+        self.title = title
     }
     
     var body: some View {
-        HStack(alignment: .top) {
+        Label {
+            Text(title)
+        } icon: {
             Text("・")
-            Text(text)
         }
+        .labelStyle(.bullet)
     }
 }
 
