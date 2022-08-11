@@ -7,6 +7,36 @@
 
 import SwiftUI
 
+// MARK: - Entities
+
+private struct Topic: Identifiable {
+    let id = UUID()
+    let title: LocalizedStringKey
+    let themes: [LocalizedStringKey]
+}
+
+// MARK: - Sample Data
+
+private let topics: [Topic] = [
+    .init(title: "001", themes: [
+        "Stacksと`layoutPriority(_:)`を使ってみる",
+    ]),
+    .init(title: "002", themes: [
+        "`NavigationLink`を使ってみる",
+        "`List`を使ってみる",
+    ]),
+    .init(title: "003", themes: [
+        "`Form`を使ってみる",
+        "`Picker`と`pickerStyle(_:)`を使ってみる",
+        "`fixedSize(horizontal:vertical:)`を使ってみる",
+    ]),
+    .init(title: "004", themes: [
+        "`PrimitiveButtonStyle`を使ってみる",
+    ]),
+]
+
+// MARK: - Views
+
 /// <doc:Topic005>
 public struct Topic005View: View {
     public init() {}
@@ -14,28 +44,14 @@ public struct Topic005View: View {
     public var body: some View {
         ScrollView {
             GroupBox {
-                GroupBox {
-                    BulletLabel("Stacksと`layoutPriority(_:)`を使ってみる")
-                } label: {
-                    Text("001")
-                }
-                GroupBox {
-                    BulletLabel("`NavigationLink`を使ってみる")
-                    BulletLabel("`List`を使ってみる")
-                } label: {
-                    Text("002")
-                }
-                GroupBox {
-                    BulletLabel("`Form`を使ってみる")
-                    BulletLabel("`Picker`と`pickerStyle(_:)`を使ってみる")
-                    BulletLabel("`fixedSize(horizontal:vertical:)`を使ってみる")
-                } label: {
-                    Text("003")
-                }
-                GroupBox {
-                    BulletLabel("`PrimitiveButtonStyle`を使ってみる")
-                } label: {
-                    Text("004")
+                ForEach(topics) { topic in
+                    GroupBox {
+                        ForEach(0..<topic.themes.count, id: \.self) { themeIndex in
+                            BulletLabel(topic.themes[themeIndex])
+                        }
+                    } label: {
+                        Text(topic.title)
+                    }
                 }
             } label: {
                 Group {
